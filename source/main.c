@@ -79,6 +79,7 @@ bool main_loaded_from_ptb = false;
 bool minute_on_slc = false;
 bool minute_on_sd = false;
 bool use_minute_img = false;
+bool blue_led_after_minute = true;
 int main_is_de_Fused = 0;
 int main_force_pause = 0;
 int main_allow_legacy_patches = 0;
@@ -1132,6 +1133,9 @@ skip_menu:
         smc_set_odd_power(true);
     }
 
+    if(blue_led_after_minute)
+        smc_set_notification_led(LEDRAW_BLUE);
+
     printf("Shutting down interrupts...\n");
     irq_shutdown();
 
@@ -1179,11 +1183,13 @@ int boot_ini(const char* key, const char* value)
         main_force_pause = minini_get_bool(value, 0);
     else if(!strcmp(key, "allow_legacy_patches"))
         main_allow_legacy_patches = minini_get_bool(value, 0);
-    else if(!strcmp(key, "autoreload")){
+    else if(!strcmp(key, "autoreload"))
         auto_reload = minini_get_bool(value, true);
-    } else if(!strcmp(key, "odd_power")){
+    else if(!strcmp(key, "odd_power"))
         main_keep_odd_off = !minini_get_bool(value, false);
-    }
+    else if(!strcmp(key, "blue_led_after_minute"))
+        blue_led_after_minute = minini_get_bool(value, true);
+
 
     return 0;
 }
