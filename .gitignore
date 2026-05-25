@@ -39,6 +39,7 @@ fw.img
 boot1.img
 fw_fastboot.img
 ios_orig.img
+*.img
 debug/
 debug_boot1/
 debug_isfshax/
@@ -55,3 +56,4 @@ fat_mnt/
 
 .DS_Store
 .vscode
+

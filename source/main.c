@@ -79,14 +79,22 @@ bool main_loaded_from_ptb = false;
 bool minute_on_slc = false;
 bool minute_on_sd = false;
 bool use_minute_img = false;
+#if defined(FASTBOOT) && !defined(BLUE_LED_AFTER_MINUTE)
+bool blue_led_after_minute = false;
+#else
 bool blue_led_after_minute = true;
+#endif
 int main_is_de_Fused = 0;
 int main_force_pause = 0;
 int main_allow_legacy_patches = 0;
 
 #ifndef MINUTE_BOOT1
 bool auto_reload = true;
+# if defined(FASTBOOT) && defined(ODD_POWER)
 static bool main_keep_odd_off = false;
+#else
+static bool main_keep_odd_off = true;
+#endif
 #endif
 
 int main_autoboot(void);

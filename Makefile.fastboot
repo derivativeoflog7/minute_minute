@@ -1,4 +1,10 @@
 #---------------------------------------------------------------------------------
+# Default settings, can be overridden when running make
+#---------------------------------------------------------------------------------
+BLUE_LED_AFTER_MINUTE ?= 1
+ODD_POWER ?= 0
+
+#---------------------------------------------------------------------------------
 .SUFFIXES:
 #---------------------------------------------------------------------------------
 
@@ -34,6 +40,14 @@ CFLAGS			:=	-g -std=c11 -Os \
 					$(ARCH) -nostartfiles
 
 CFLAGS			+=	$(INCLUDE) -D_GNU_SOURCE -DCAN_HAZ_IRQ -fno-builtin-printf -Wno-nonnull -Werror=implicit -DFASTBOOT
+
+ifeq ($(BLUE_LED_AFTER_MINUTE),1)
+	CFLAGS		+=	-DBLUE_LED_AFTER_MINUTE
+endif
+ifeq ($(ODD_POWER), 1)
+	CFLAGS		+=	-DODD_POWER
+endif
+
 
 CXXFLAGS		:=	$(CFLAGS) -fno-rtti -fno-exceptions
 
