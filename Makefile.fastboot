@@ -2,7 +2,7 @@
 # Default settings, can be overridden when running make
 #---------------------------------------------------------------------------------
 BLUE_LED_AFTER_MINUTE ?= 1
-ODD_POWER ?= 0
+ODD_POWER ?= 1
 
 #---------------------------------------------------------------------------------
 .SUFFIXES:

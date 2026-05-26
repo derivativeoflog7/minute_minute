@@ -23,7 +23,15 @@ On a stock system boot1 turns on the power to the Disc Drive (ODD), just before 
 
 To avoid this as much as possible, the minute boot1 (from minute 2.10 and on)(which is also part of ISFSHax 5.1 and on and takes over before the stock boot1 initializes the drive) does not turn on the drive power and minute waits until the last possible moment for turning on the drive power. Stroopwafel was optimized to not output anything on the debug port, since that was adding noticeable delay. This is close to the stock behavior.
 
-To get totally rid of the first noise minute now has the option to set `odd_power=false` in the `minute.ini` (default is true). When set to false, minute does not turn on the ODD power. And IOSU will turn on the power, just before it initializes the SATA connection. But on some consoles this causes a crash on cold boot after being off for several hours. The reason for that crash is not fully clear, but it is assumed that enabling the power causes some power instability, which is more critical in IOSU with more of the system (like the PPC) running.
+To get totally rid of the first noise minute now has the option to set `odd_power=false` in the `[boot]` section of `minute.ini` (default is true). When set to false, minute does not turn on the ODD power. And IOSU will turn on the power, just before it initializes the SATA connection. But on some consoles this causes a crash on cold boot after being off for several hours. The reason for that crash is not fully clear, but it is assumed that enabling the power causes some power instability, which is more critical in IOSU with more of the system (like the PPC) running.
+
+## LED color
+
+The LED color can be configured in with `blue_led_after_minute` in the `[boot]` section of `minute.ini` (default is true). When set to false, the LED will be kept purple after exiting minute.
+
+## Fastboot variants
+Since the fastboot version ignores all configuration files, multiple variants can be built and are provided in the releases configured with different combinations of settings (corresponding to ones available in `minute.ini`).  
+Currently available settings are `ODD_POWER` and `BLUE_LED_AFTER_MINUTE`.
 
 ## Building
 
@@ -31,10 +39,12 @@ To build you need [devkitPPC](https://devkitpro.org/wiki/Getting_Started) instal
 
 - Build `boot1.img`: `make -f Makefile.boot1`
 - Build `fw.img`: `make`
-- Build `fw_fastboot.img`: `make -f Makefile.fastboot`
+- Build `fw_fastboot.img` (with default settings): `make -f Makefile.fastboot`
 - Build `isfshax_stage2.elf`: `make -f Makefile.isfshax`
 
-### Building using Docker
+To build a variant of `fw_fastboot.img` with different settings, specify them at the end of the `make` command (for example, `make -f Makefile.fastboot ODD_POWER=0 BLUE_LED_AFTER_MINUTE=0`). Default settigns can be found at the beginning of `Makefile.fastboot`.
+
+### Building using Docker/Podman
 
 It's possible to use a docker image for building. This way you don't need anything installed on your host system.
 
