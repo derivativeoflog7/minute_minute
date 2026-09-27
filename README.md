@@ -42,7 +42,8 @@ To build you need [devkitPPC](https://devkitpro.org/wiki/Getting_Started) instal
 - Build `fw_fastboot.img` (with default settings): `make -f Makefile.fastboot`
 - Build `isfshax_stage2.elf`: `make -f Makefile.isfshax`
 
-To build a variant of `fw_fastboot.img` with different settings, specify them at the end of the `make` command (for example, `make -f Makefile.fastboot ODD_POWER=0 BLUE_LED_AFTER_MINUTE=0`). Default settigns can be found at the beginning of `Makefile.fastboot`.
+To build a variant of `fw_fastboot.img` with different settings, specify them at the end of the `make` command (for example, `make -f Makefile.fastboot ODD_POWER=0 BLUE_LED_AFTER_MINUTE=0`). Default settigns can be found at the beginning of `Makefile.fastboot`.  
+Alternatively, run `build_all_fastboot_variants.sh` to build variants with all possible settings combinations.
 
 ### Building using Docker/Podman
 
